@@ -79,7 +79,7 @@
 
             <div class="content">
                 <div class="links">
-                    <img src="http://eduly.admin.neptuno.digital/images/eduly-green.png">
+                    <img src="http://admin.eduly.la/images/eduly-green.png">
                 </div>
                 <div class="title m-b-md">
                     <!--core-->
