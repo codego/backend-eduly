@@ -20,7 +20,7 @@ class StudentsController extends Controller
         //return new StudentsResource(Students::find($id));
         //return Students::where('id', $id)->get();
         //return response()->json(array('success' => true), 200);
-        return Students::find($id);
+        return students::find($id);
 
     }
 
@@ -35,13 +35,13 @@ class StudentsController extends Controller
     }
 
     public function delete($id) {
-        $student = Students::find($id);
+        $student = students::find($id);
         $student->delete();
         return response()->json(array('success' => true), 200);
     }
 
     public function edit($id) {
-        $student = Students::find($id);
+        $student = students::find($id);
 
         $studentData = json_decode(request()->getContent(), true);
 
@@ -70,7 +70,7 @@ class StudentsController extends Controller
 
     public function create(Request $request)
     {
-        $student = new Students;
+        $student = new students;
         $studentData = json_decode(request()->getContent(), true);
 
         $student->name = $studentData['name'];
