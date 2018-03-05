@@ -31,7 +31,7 @@ class StudentsController extends Controller
         $start = $request->input('_start');
         $order = $request->input('_order');
         return response(DB::table('students')->orderBy($sort, $order)->offset($start)->limit($end)->get(), 200)
-                ->header('X-Total-Count', \App\Students::all()->count());
+                ->header('X-Total-Count', \App\students::all()->count());
     }
 
     public function delete($id) {
