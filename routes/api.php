@@ -29,5 +29,11 @@ Route::group(['middleware' => ['jwt.auth']], function() {
     Route::post('students', 'StudentsController@create');
     Route::get('students', 'StudentsController@showAll');
 
+    Route::get('teachers/{id}', 'TeachersController@show');
+    Route::delete('teachers/{id}', 'TeachersController@delete');
+    Route::put('teachers/{id}', 'TeachersController@edit');
+    Route::post('teachers', 'TeachersController@create');
+    Route::get('teachers', 'TeachersController@showAll');
+
 });
 
