@@ -41,22 +41,22 @@ class TeachersController extends Controller
     }
 
     public function edit($id) {
-        $student = teachers::find($id);
+        $teachers = teachers::find($id);
 
         $studentData = json_decode(request()->getContent(), true);
 
-        $student->name = $studentData['name'];
-        $student->lastname = $studentData['lastname'];
-        $student->document = $studentData['document'];
-        $student->gender = $studentData['gender'];
-        $student->email = $studentData['email'];
-        $student->status = $studentData['status'];
-        $student->status = $studentData['phone'];
-        $student->entry = date('Y-m-d H:i:s'); //$studentData['entry'];
+        $teachers->name = $studentData['name'];
+        $teachers->lastname = $studentData['lastname'];
+        $teachers->document = $studentData['document'];
+        $teachers->gender = $studentData['gender'];
+        $teachers->email = $studentData['email'];
+        $teachers->status = $studentData['status'];
+        $teachers->status = $studentData['phone'];
+        $teachers->entry = date('Y-m-d H:i:s'); //$studentData['entry'];
         //$student->egress = $studentData['egress'];
 
-        $student->save();
-        return response()->json(array('success' => true, 'id' => $student->id), 200);
+        $teachers->save();
+        return response()->json(array('success' => true, 'id' => $teachers->id), 200);
 
 
     }
@@ -66,13 +66,13 @@ class TeachersController extends Controller
         $teachers = new teachers;
         $studentData = json_decode(request()->getContent(), true);
 
-        $student->name = $studentData['name'];
-        $student->lastname = $studentData['lastname'];
-        $student->document = $studentData['document'];
-        $student->gender = $studentData['gender'];
-        $student->email = $studentData['email'];
-        $student->status = $studentData['status'];
-        $student->status = $studentData['phone'];
+        $teachers->name = $studentData['name'];
+        $teachers->lastname = $studentData['lastname'];
+        $teachers->document = $studentData['document'];
+        $teachers->gender = $studentData['gender'];
+        $teachers->email = $studentData['email'];
+        $teachers->status = $studentData['status'];
+        $teachers->status = $studentData['phone'];
 
         $teachers->save();
         return $teachers->id;
