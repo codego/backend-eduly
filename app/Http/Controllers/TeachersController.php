@@ -52,7 +52,6 @@ class TeachersController extends Controller
         $teachers->email = $studentData['email'];
         $teachers->status = $studentData['status'];
         $teachers->phone = $studentData['phone'];
-        $teachers->entry = date('Y-m-d H:i:s'); //$studentData['entry'];
         //$student->egress = $studentData['egress'];
 
         $teachers->save();
