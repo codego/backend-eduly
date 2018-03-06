@@ -32,18 +32,17 @@ class StudentsController extends Controller
         $order = $request->input('_order');
         $where = "1=1 ";
         if ($request->input('name')) {
-            $where .= ', name = '.$request->input('name');
+            $where .= ', name = "'.$request->input('name').'"';
         }
         if ($request->input('lastname')) {
-            $where .= ', lastname = '.$request->input('lastname');
+            $where .= ', lastname = "'.$request->input('lastname').'"';
         }
         if ($request->input('document')) {
-            $where .= ', document = '.$request->input('document');
+            $where .= ', document = "'.$request->input('document').'"';
         }
         if ($request->input('email')) {
-            $where .= ', email = '.$request->input('email');
+            $where .= ', email = "'.$request->input('email').'"';
         }
-        print_r($where);
         return response(DB::table('students')->whereRaw($where)->orderBy($sort, $order)->offset($start)->limit($end)->get(), 200)
                 ->header('X-Total-Count', \App\students::all()->count());
     }
