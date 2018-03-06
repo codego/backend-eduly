@@ -43,7 +43,7 @@ class StudentsController extends Controller
         if ($request->input('email')) {
             $where .= ', email = '.$request->input('email');
         }
-
+        print_r($where);
         return response(DB::table('students')->whereRaw($where)->orderBy($sort, $order)->offset($start)->limit($end)->get(), 200)
                 ->header('X-Total-Count', \App\students::all()->count());
     }
