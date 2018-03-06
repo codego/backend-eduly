@@ -51,7 +51,7 @@ class TeachersController extends Controller
         $teachers->gender = $studentData['gender'];
         $teachers->email = $studentData['email'];
         $teachers->status = $studentData['status'];
-        $teachers->status = $studentData['phone'];
+        $teachers->phone = $studentData['phone'];
         $teachers->entry = date('Y-m-d H:i:s'); //$studentData['entry'];
         //$student->egress = $studentData['egress'];
 
@@ -72,7 +72,7 @@ class TeachersController extends Controller
         $teachers->gender = $studentData['gender'];
         $teachers->email = $studentData['email'];
         $teachers->status = $studentData['status'];
-        $teachers->status = $studentData['phone'];
+        $teachers->phone = $studentData['phone'];
 
         $teachers->save();
         return $teachers->id;
