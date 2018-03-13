@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\subject;
+use App\subjects;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -20,7 +20,7 @@ class SubjectController extends Controller
         //return new StudentsResource(Students::find($id));
         //return Students::where('id', $id)->get();
         //return response()->json(array('success' => true), 200);
-        return subject::find($id);
+        return subjects::find($id);
 
     }
 
@@ -30,18 +30,18 @@ class SubjectController extends Controller
         $end = $request->input('_end');
         $start = $request->input('_start');
         $order = $request->input('_order');
-        return response(DB::table('subject')->orderBy($sort, $order)->offset($start)->limit($end)->get(), 200)
-            ->header('X-Total-Count', \App\subject::all()->count());
+        return response(DB::table('subjects')->orderBy($sort, $order)->offset($start)->limit($end)->get(), 200)
+            ->header('X-Total-Count', \App\subjects::all()->count());
     }
 
     public function delete($id) {
-        $student = subject::find($id);
+        $student = subjects::find($id);
         $student->delete();
         return response()->json(array('success' => true), 200);
     }
 
     public function edit($id) {
-        $subject = subject::find($id);
+        $subject = subjects::find($id);
 
         $subjectData = json_decode(request()->getContent(), true);
 
@@ -60,7 +60,7 @@ class SubjectController extends Controller
 
     public function create(Request $request)
     {
-        $subject = new subject;
+        $subject = new subjects;
         $subjectData = json_decode(request()->getContent(), true);
 
         $subject->name = $subjectData['name'];
