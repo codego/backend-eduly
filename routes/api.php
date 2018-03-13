@@ -35,5 +35,11 @@ Route::group(['middleware' => ['jwt.auth']], function() {
     Route::post('teachers', 'TeachersController@create');
     Route::get('teachers', 'TeachersController@showAll');
 
+    Route::get('subject/{id}', 'SubjectController@show');
+    Route::delete('subject/{id}', 'SubjectController@delete');
+    Route::put('subject/{id}', 'SubjectController@edit');
+    Route::post('subject', 'SubjectController@create');
+    Route::get('subject', 'SubjectController@showAll');
+
 });
 
