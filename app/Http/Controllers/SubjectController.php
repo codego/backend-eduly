@@ -51,7 +51,7 @@ class SubjectController extends Controller
         $subject->code = $subjectData['code'];
         $subject->promotable = $subjectData['promotable'];
 
-        $this->correlativeService->store($id, $subject->correlatives);
+        $this->correlativeService->store($id, $subjectData['correlatives']);
 
         $subject->save();
 
