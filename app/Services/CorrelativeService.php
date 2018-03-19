@@ -10,6 +10,9 @@ class CorrelativeService
     public function store($id_subject, $ids_subjects_dependences)
     {
         var_dump($ids_subjects_dependences);
+        foreach ($ids_subjects_dependences as $id_subject_dependence) {
+            echo $id_subject_dependence->id_subject;
+        }
         dd();
         /*
         if($id_subject) {
