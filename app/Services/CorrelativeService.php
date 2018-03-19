@@ -9,7 +9,7 @@ class CorrelativeService
 {
     public function store($id_subject, $ids_subjects_dependences)
     {
-        var_dump(json_decode($ids_subjects_dependences));
+        var_dump($ids_subjects_dependences);
 
         dd();
         /*
