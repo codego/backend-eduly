@@ -13,10 +13,8 @@ class CorrelativeService
             foreach ($ids_subjects_dependences as $id_subject_dependence) {
                 $correlatives[] = array('id_subject' => $id_subject, 'id_subject_dependence' => $id_subject_dependence);
             }
-            var_dump($correlatives);
-            dd();
             //DB::table('correlatives')->whereIn('id_subject', $id_subject)->delete();
-            //DB::table('correlatives')->insert($correlatives);
+            DB::table('correlatives')->insert($correlatives);
         }
         return true;
     }
