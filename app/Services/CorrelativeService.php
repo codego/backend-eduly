@@ -11,7 +11,7 @@ class CorrelativeService
     {
         var_dump($ids_subjects_dependences);
         foreach ($ids_subjects_dependences as $id_subject_dependence) {
-            echo $id_subject_dependence->id_subject;
+            echo $id_subject_dependence[0]['id_subject_dependence'];
         }
         dd();
         /*
