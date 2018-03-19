@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\correlative;
+use App\correlatives;
 use Illuminate\Http\Request;
 
 class CorrelativeController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -33,10 +34,10 @@ class CorrelativeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id, Request $request)
+    public function store($id_subject, $id_subject_dependence)
     {
-        DB::table('subjects')->whereIn('id_subject', $id)->delete();
-        var_dump($request->correlatives);
+        DB::table('subjects')->whereIn('id_subject', $id_subject)->delete();
+        var_dump($id_subject_dependence);
         dd();
     }
 

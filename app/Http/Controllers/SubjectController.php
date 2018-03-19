@@ -5,23 +5,22 @@ namespace App\Http\Controllers;
 use App\subjects;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\Services\CorrelativeService;
 
 class SubjectController extends Controller
 {
+    protected $correlativeService;
 
-    public function __construct()
+    public function __construct(
+        CorrelativeService $correlativeService
+    )
     {
-        //$this->middleware('auth:api');
+        $this->correlativeService = $correlativeService;
     }
 
     public function show($id)
     {
-        //return new StudentsResource(Students::find($id));
-        //return Students::where('id', $id)->get();
-        //return response()->json(array('success' => true), 200);
         return subjects::find($id);
-
     }
 
     public function showAll(Request $request)
@@ -52,9 +51,11 @@ class SubjectController extends Controller
         $subject->code = $subjectData['code'];
         $subject->promotable = $subjectData['promotable'];
 
-        $subject->save();
-        return response()->json(array('success' => true, 'id' => $subject->id), 200);
+        $this->correlativeService->store($id, $subject->correlatives);
 
+        $subject->save();
+
+        return response()->json(array('success' => true, 'id' => $subject->id), 200);
 
     }
 
