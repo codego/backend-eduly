@@ -36,9 +36,7 @@ class CorrelativeController extends Controller
      */
     public function store($id_subject, $id_subject_dependence)
     {
-        DB::table('subjects')->whereIn('id_subject', $id_subject)->delete();
-        var_dump($id_subject_dependence);
-        dd();
+
     }
 
     /**
@@ -47,9 +45,10 @@ class CorrelativeController extends Controller
      * @param  \App\correlative  $correlative
      * @return \Illuminate\Http\Response
      */
-    public function show(correlative $correlative)
+    public function show($id)
     {
-        //
+        return response(DB::table('correlatives')->where('id_subject', $id)->get(), 200)
+            ->header('X-Total-Count', \App\subjects::all()->count());
     }
 
     /**

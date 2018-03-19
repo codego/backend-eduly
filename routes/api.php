@@ -41,5 +41,6 @@ Route::group(['middleware' => ['jwt.auth']], function() {
     Route::post('subject', 'SubjectController@create');
     Route::get('subject', 'SubjectController@showAll');
 
+    Route::get('correlatives/{id}', 'CorrelativeController@show');
 });
 
