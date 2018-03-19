@@ -19,11 +19,6 @@ class CreateCorrelativesTable extends Migration
             $table->integer('id_subject_dependence');
             $table->timestamps();
         });
-
-        Schema::table('priorities', function($table) {
-            $table->foreign('id_subject')->references('id')->on('subjects');
-            $table->foreign('id_subject_dependence')->references('id')->on('subjects');
-        });
     }
 
     /**
