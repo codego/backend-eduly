@@ -15,9 +15,14 @@ class CreateCorrelativesTable extends Migration
     {
         Schema::create('correlatives', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('id_subject');
+            $table->integer('id_subject_dependence');
+            $table->timestamps();
+        });
+
+        Schema::table('priorities', function($table) {
             $table->foreign('id_subject')->references('id')->on('subjects');
             $table->foreign('id_subject_dependence')->references('id')->on('subjects');
-            $table->timestamps();
         });
     }
 
