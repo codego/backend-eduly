@@ -20,7 +20,14 @@ class SubjectController extends Controller
 
     public function show($id)
     {
-        return subjects::find($id);
+        $subject_detail = subjects::find($id);
+        $correlatives_details = DB::table('correlatives')
+            ->join('subjects', 'subjects.id', '=', 'correlatives.id_subject_dependence')
+            ->select('subjects.name', 'subjects.id')
+            ->get();
+        $res = array('subject_detail'=>$subject_detail, 'correlatives:'=>$correlatives_details);
+
+        return (object) $res;
     }
 
     public function showAll(Request $request)
