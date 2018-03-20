@@ -27,7 +27,7 @@ class SubjectController extends Controller
             ->get();
         $res = array('subject_detail'=>$subject_detail, 'correlatives:'=>$correlatives_details);
 
-        return (object) $res;
+        return $res;
     }
 
     public function showAll(Request $request)
