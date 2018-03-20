@@ -25,7 +25,7 @@ class SubjectController extends Controller
             ->join('subjects', 'subjects.id', '=', 'correlatives.id_subject_dependence')
             ->select('subjects.name', 'subjects.id')
             ->get();
-        $res = array('subject_detail'=>$subject_detail, 'correlatives:'=>$correlatives_details);
+        $res = array('subject_detail'=>$subject_detail, 'correlatives'=>$correlatives_details);
 
         return $res;
     }
