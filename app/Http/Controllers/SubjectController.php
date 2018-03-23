@@ -24,6 +24,11 @@ class SubjectController extends Controller
             ->join('subjects', 'subjects.id', '=', 'correlatives.id_subject_dependence')
             ->select('subjects.id')
             ->get();
+
+        foreach ($correlatives as $value) {
+            $result_correlatives[] = $value;
+        }
+
         $subjectDetail = subjects::find($id);
         $result = [
             'name'=>$subjectDetail->name,
@@ -32,7 +37,7 @@ class SubjectController extends Controller
             'workload'=>$subjectDetail->workload,
             'code'=>$subjectDetail->code,
             'promotable'=>$subjectDetail->promotable,
-            'correlatives'=>$correlatives
+            'correlatives'=>$result_correlatives
         ];
         return response($result, 200);
     }
