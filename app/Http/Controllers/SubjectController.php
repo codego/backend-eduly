@@ -25,13 +25,22 @@ class SubjectController extends Controller
             ->select('subjects.name', 'subjects.id')
             ->get();
         $subjectDetail = subjects::find($id);
-        return $subjectDetail;
+        $result = [
+            'name'=>$subjectDetail->name,
+            'descripcion'=>$subjectDetail->description,
+            'year'=>$subjectDetail->description,
+            'workload'=>$subjectDetail->workload,
+            'code'=>$subjectDetail->code,
+            'promotable'=>$subjectDetail->promotable,
+            'correlatives'=>$correlatives
+        ];
+        return response($result, 200);
     }
 
     public function getCorrelatives(Request $request) {
         return response(DB::table('correlatives')->where('correlatives.id_subject', '=', $request->input('subject_id'))
             ->join('subjects', 'subjects.id', '=', 'correlatives.id_subject_dependence')
-            ->select('subjects.name', 'subjects.id', DB::raw('count(*) as total'))
+            ->select('subjects.name', 'subjects.id')
             ->get(), 200);
     }
 
