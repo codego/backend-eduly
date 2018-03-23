@@ -26,7 +26,7 @@ class SubjectController extends Controller
             ->get();
 
         foreach ($correlatives as $value) {
-            $result_correlatives[] = (integer) $value->id;
+            $result_correlatives[] = $value->id;
         }
         return $result_correlatives;
     }
