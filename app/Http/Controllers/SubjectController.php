@@ -48,8 +48,7 @@ class SubjectController extends Controller
 
     public function getCorrelatives(Request $request) {
         $count = DB::table('correlatives')->where('correlatives.id_subject', '=', $request->input('subject_id'))
-            ->count()
-            ->get();
+            ->count();
         return response(DB::table('correlatives')->where('correlatives.id_subject', '=', $request->input('subject_id'))
             ->join('subjects', 'subjects.id', '=', 'correlatives.id_subject_dependence')
             ->select('subjects.name', 'subjects.id')
