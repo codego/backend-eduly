@@ -25,7 +25,6 @@ class SubjectController extends Controller
             ->select('subjects.name', 'subjects.id')
             ->get();
         $subjectDetail = subjects::find($id);
-        $subjectDetail->append($correlatives);
         return $subjectDetail;
     }
 
