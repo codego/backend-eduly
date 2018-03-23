@@ -20,6 +20,7 @@ class SubjectController extends Controller
 
     public function show($id)
     {
+        $result_correlatives = array();
         $correlatives = DB::table('correlatives')->where('correlatives.id_subject', '=', $id)
             ->join('subjects', 'subjects.id', '=', 'correlatives.id_subject_dependence')
             ->select('subjects.id')
