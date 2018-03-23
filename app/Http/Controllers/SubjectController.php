@@ -18,10 +18,9 @@ class SubjectController extends Controller
         $this->correlativeService = $correlativeService;
     }
 
-    public function show($id)
-    {
+    private function getIdCorrelatives($id_subject) {
         $result_correlatives = array();
-        $correlatives = DB::table('correlatives')->where('correlatives.id_subject', '=', $id)
+        $correlatives = DB::table('correlatives')->where('correlatives.id_subject', '=', $id_subject)
             ->join('subjects', 'subjects.id', '=', 'correlatives.id_subject_dependence')
             ->select('subjects.id')
             ->get();
@@ -29,7 +28,11 @@ class SubjectController extends Controller
         foreach ($correlatives as $value) {
             $result_correlatives[] = (integer) $value->id;
         }
+        return $result_correlatives;
+    }
 
+    public function show($id)
+    {
         $subjectDetail = subjects::find($id);
         $result = [
             'name'=>$subjectDetail->name,
@@ -38,16 +41,19 @@ class SubjectController extends Controller
             'workload'=>$subjectDetail->workload,
             'code'=>$subjectDetail->code,
             'promotable'=>$subjectDetail->promotable,
-            'correlatives'=>$result_correlatives
+            'correlatives'=>$this->getIdCorrelatives($id)
         ];
         return response($result, 200);
     }
 
     public function getCorrelatives(Request $request) {
+        $count = DB::table('correlatives')->where('correlatives.id_subject', '=', $request->input('subject_id'))
+            ->count()
+            ->get();
         return response(DB::table('correlatives')->where('correlatives.id_subject', '=', $request->input('subject_id'))
             ->join('subjects', 'subjects.id', '=', 'correlatives.id_subject_dependence')
             ->select('subjects.name', 'subjects.id')
-            ->get(), 200);
+            ->get(), 200)->header('X-Total-Count', $count);
     }
 
     public function showAll(Request $request)
