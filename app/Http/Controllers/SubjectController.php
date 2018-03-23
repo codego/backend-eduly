@@ -28,7 +28,7 @@ class SubjectController extends Controller
         $result = [
             'name'=>$subjectDetail->name,
             'descripcion'=>$subjectDetail->description,
-            'year'=>$subjectDetail->description,
+            'year'=>$subjectDetail->year,
             'workload'=>$subjectDetail->workload,
             'code'=>$subjectDetail->code,
             'promotable'=>$subjectDetail->promotable,
