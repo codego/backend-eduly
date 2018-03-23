@@ -28,8 +28,7 @@ class SubjectController extends Controller
         foreach ($correlatives as $value) {
             $result_correlatives[] = $value;
         }
-        var_dump($result_correlatives);
-        dd();
+
         $subjectDetail = subjects::find($id);
         $result = [
             'name'=>$subjectDetail->name,
