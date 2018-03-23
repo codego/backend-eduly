@@ -22,7 +22,7 @@ class SubjectController extends Controller
     {
         $correlatives = DB::table('correlatives')->where('correlatives.id_subject', '=', $id)
             ->join('subjects', 'subjects.id', '=', 'correlatives.id_subject_dependence')
-            ->select('subjects.name', 'subjects.id')
+            ->select('subjects.id')
             ->get();
         $subjectDetail = subjects::find($id);
         $result = [
