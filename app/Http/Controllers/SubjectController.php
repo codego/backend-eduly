@@ -26,7 +26,7 @@ class SubjectController extends Controller
             ->get();
 
         foreach ($correlatives as $value) {
-            $result_correlatives[] = $value;
+            $result_correlatives[] = $value->id;
         }
 
         $subjectDetail = subjects::find($id);
