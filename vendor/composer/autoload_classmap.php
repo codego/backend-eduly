@@ -30,6 +30,7 @@ return array(
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\Services\\CorrelativeService' => $baseDir . '/app/Services/CorrelativeService.php',
+    'App\\Tenant' => $baseDir . '/app/Tenant.php',
     'App\\User' => $baseDir . '/app/User.php',
     'App\\correlatives' => $baseDir . '/app/correlatives.php',
     'App\\students' => $baseDir . '/app/students.php',

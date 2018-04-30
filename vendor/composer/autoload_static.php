@@ -368,6 +368,7 @@ class ComposerStaticInit71f62eca2235383a917154d1c7f6e04b
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Services\\CorrelativeService' => __DIR__ . '/../..' . '/app/Services/CorrelativeService.php',
+        'App\\Tenant' => __DIR__ . '/../..' . '/app/Tenant.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\correlatives' => __DIR__ . '/../..' . '/app/correlatives.php',
         'App\\students' => __DIR__ . '/../..' . '/app/students.php',
