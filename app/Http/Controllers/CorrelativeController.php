@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 class CorrelativeController extends Controller
 {
 
+    function __construct()
+    {
+        $this->middleware(\App\Http\Middleware\CheckTenant::class);
+    }
+
     /**
      * Display a listing of the resource.
      *

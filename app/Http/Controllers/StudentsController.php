@@ -12,7 +12,7 @@ class StudentsController extends Controller
 
     public function __construct()
     {
-        // $this->middleware('auth:api');
+        $this->middleware(\App\Http\Middleware\CheckTenant::class);
     }
 
     public function show($id)

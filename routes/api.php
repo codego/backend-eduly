@@ -41,6 +41,11 @@ Route::group(['middleware' => ['jwt.auth']], function() {
     Route::post('subject', 'SubjectController@create');
     Route::get('subject', 'SubjectController@showAll');
 
+    Route::delete('career/{id}', 'CareerController@destroy');
+    Route::put('career/{id}', 'CareerController@edit');
+    Route::post('career', 'CareerController@create');
+    Route::get('career', 'CareerController@index');
+
     Route::get('correlatives', 'SubjectController@getCorrelatives');
 });
 

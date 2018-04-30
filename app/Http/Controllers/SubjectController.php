@@ -15,6 +15,7 @@ class SubjectController extends Controller
         CorrelativeService $correlativeService
     )
     {
+        $this->middleware(\App\Http\Middleware\CheckTenant::class);
         $this->correlativeService = $correlativeService;
     }
 
@@ -35,6 +36,15 @@ class SubjectController extends Controller
         $count = DB::table('correlatives')->where('correlatives.id_subject', '=', $request->input('subject_id'))
             ->count();
         return response(DB::table('correlatives')->where('correlatives.id_subject', '=', $request->input('subject_id'))
+            ->join('subjects', 'subjects.id', '=', 'correlatives.id_subject_dependence')
+            ->select('subjects.name', 'subjects.id')
+            ->get(), 200)->header('X-Total-Count', $count);
+    }
+
+    public function getCorrelativesForList($id) {
+        $count = DB::table('correlatives')->where('correlatives.id_subject', '=', $id)
+            ->count();
+        return response(DB::table('correlatives')->where('correlatives.id_subject', '=', $id)
             ->join('subjects', 'subjects.id', '=', 'correlatives.id_subject_dependence')
             ->select('subjects.name', 'subjects.id')
             ->get(), 200)->header('X-Total-Count', $count);
@@ -61,7 +71,18 @@ class SubjectController extends Controller
         $end = $request->input('_end');
         $start = $request->input('_start');
         $order = $request->input('_order');
-        return response(DB::table('subjects')->orderBy($sort, $order)->offset($start)->limit($end)->get(), 200)
+        $result = DB::table('subjects')
+            ->orderBy($sort, $order)
+            ->offset($start)
+            ->limit($end)
+            ->get();
+
+        $list = array_map(function($item) {
+            $item->correlatives = $this->getIdCorrelatives($item->id);
+            return $item;
+        }, $result->all());
+
+        return response($list, 200)
             ->header('X-Total-Count', \App\subjects::all()->count());
     }
 
