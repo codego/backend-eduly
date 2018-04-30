@@ -13,7 +13,7 @@ class AddForingkeyToCorrelativesTable extends Migration
      */
     public function up()
     {
-        Schema::table('priorities', function($table) {
+        Schema::table('correlatives', function($table) {
             $table->foreign('id_subject')->references('id')->on('subjects');
             $table->foreign('id_subject_dependence')->references('id')->on('subjects');
         });
