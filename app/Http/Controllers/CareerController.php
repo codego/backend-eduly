@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Career;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CareerController extends Controller
 {
@@ -52,7 +53,7 @@ class CareerController extends Controller
         $career->description = $careerData['description'];
 
         $career->save();
-        return response()->json(array('success' => true, 'id' => $career->id), 200);
+        return response()->json(array('success' => true), 200);
     }
 
     /**
@@ -103,7 +104,7 @@ class CareerController extends Controller
      * @param  \App\Career  $career
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Career $career)
+    public function destroy($id)
     {
         $career = Career::find($id);
         $career->delete();

@@ -41,15 +41,6 @@ class SubjectController extends Controller
             ->get(), 200)->header('X-Total-Count', $count);
     }
 
-    public function getCorrelativesForList($id) {
-        $count = DB::table('correlatives')->where('correlatives.id_subject', '=', $id)
-            ->count();
-        return response(DB::table('correlatives')->where('correlatives.id_subject', '=', $id)
-            ->join('subjects', 'subjects.id', '=', 'correlatives.id_subject_dependence')
-            ->select('subjects.name', 'subjects.id')
-            ->get(), 200)->header('X-Total-Count', $count);
-    }
-
     public function show($id)
     {
         $subjectDetail = subjects::find($id);
