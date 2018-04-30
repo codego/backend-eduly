@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 class CreateTenantsTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the tenant migrations.
      *
      * @return void
      */
