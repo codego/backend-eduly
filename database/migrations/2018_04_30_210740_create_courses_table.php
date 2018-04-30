@@ -30,7 +30,7 @@ class CreateCoursesTable extends Migration
             $table->integer('hour_finish');
             $table->integer('aula');
             $table->integer('periodicity');
-            $table->foreign('courses_id')->references('id')->on('courses');;
+            $table->foreign('course_id')->references('id')->on('courses');;
             $table->timestamps();
         });
     }
