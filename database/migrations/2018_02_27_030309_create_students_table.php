@@ -29,6 +29,7 @@ class CreateStudentsTable extends Migration
             $table->string('place_residence');
             $table->string('email');
             $table->integer('status');
+            $table->string('group_by')->nullable();
             $table->date('entry');
             $table->date('egress')->nullable();
             $table->timestamps();

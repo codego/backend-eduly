@@ -47,6 +47,15 @@ Route::group(['middleware' => ['jwt.auth']], function() {
     Route::post('career', 'CareerController@store');
     Route::get('career', 'CareerController@index');
 
+    Route::get('course/{id}', 'CourseController@show');
+    Route::delete('course/{id}', 'CourseController@destroy');
+    Route::put('course/{id}', 'CourseController@update');
+    Route::post('course', 'CourseController@store');
+    Route::get('course', 'CourseController@index');
+
+
     Route::get('correlatives', 'SubjectController@getCorrelatives');
+    Route::get('subject_career', 'SubjectController@getCareers');
+
 });
 

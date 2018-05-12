@@ -6,17 +6,21 @@ use App\subjects;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Services\CorrelativeService;
+use App\Services\CareerService;
 
 class SubjectController extends Controller
 {
     protected $correlativeService;
+    protected $careerService;
 
     public function __construct(
-        CorrelativeService $correlativeService
+        CorrelativeService $correlativeService,
+        CareerService $careerService
     )
     {
         $this->middleware(\App\Http\Middleware\CheckTenant::class);
         $this->correlativeService = $correlativeService;
+        $this->careerService = $careerService;
     }
 
     private function getIdCorrelatives($id_subject) {
@@ -32,11 +36,32 @@ class SubjectController extends Controller
         return $result_correlatives;
     }
 
+    private function getIdCareers($subject_id) {
+        $result_careers = array();
+        $careers = DB::table('careers_subjects')->where('careers_subjects.subject_id', '=', $subject_id)
+            ->select('careers_subjects.career_id as id')
+            ->get();
+
+        foreach ($careers as $value) {
+            $result_careers[] = $value->id;
+        }
+        return $result_careers;
+    }
+
+    public function getCareers(Request $request) {
+        $count = DB::table('careers_subjects')->where('careers_subjects.subject_id', '=', $request->input('subject_id'))
+            ->count();
+        return response(DB::table('careers_subjects')->where('careers_subjects.subject_id', '=', $request->input('subject_id'))
+            ->join('careers', 'careers.id', '=', 'careers_subjects.career_id')
+            ->select('careers.name', 'careers.id')
+            ->get(), 200)->header('X-Total-Count', $count);
+    }
+
     public function getCorrelatives(Request $request) {
         $count = DB::table('correlatives')->where('correlatives.id_subject', '=', $request->input('subject_id'))
             ->count();
         return response(DB::table('correlatives')->where('correlatives.id_subject', '=', $request->input('subject_id'))
-            ->join('subjects', 'subjects.id', '=', 'correlatives.id_subject_dependence')
+            ->join('subjects', 'subjects.career_id', '=', 'correlatives.id_subject_dependence')
             ->select('subjects.name', 'subjects.id')
             ->get(), 200)->header('X-Total-Count', $count);
     }
@@ -45,13 +70,15 @@ class SubjectController extends Controller
     {
         $subjectDetail = subjects::find($id);
         $result = [
+            'id'=>$subjectDetail->id,
             'name'=>$subjectDetail->name,
             'descripcion'=>$subjectDetail->description,
             'year'=>$subjectDetail->year,
             'workload'=>$subjectDetail->workload,
             'code'=>$subjectDetail->code,
             'promotable'=>$subjectDetail->promotable,
-            'correlatives'=>$this->getIdCorrelatives($id)
+            'correlatives'=>$this->getIdCorrelatives($id),
+            'careers'=>$this->getIdCareers($id)
         ];
         return response($result, 200);
     }
@@ -70,6 +97,7 @@ class SubjectController extends Controller
 
         $list = array_map(function($item) {
             $item->correlatives = $this->getIdCorrelatives($item->id);
+            $item->careers = $this->getIdCareers($item->id);
             return $item;
         }, $result->all());
 
@@ -96,6 +124,7 @@ class SubjectController extends Controller
         $subject->promotable = $subjectData['promotable'];
 
         $this->correlativeService->store($id, $subjectData['correlatives']);
+        $this->careerService->store($id, $subjectData['career']);
 
         $subject->save();
 
@@ -116,6 +145,12 @@ class SubjectController extends Controller
         $subject->promotable = $subjectData['promotable'];
 
         $subject->save();
-        return $subject->id;
+
+        $id = $subject->id;
+
+        $this->correlativeService->store($id, $subjectData['correlatives']);
+        $this->careerService->store($id, $subjectData['career']);
+
+        return response()->json(array('success' => true), 200);
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Services;
-
-use App\correlatives;
 use Illuminate\Support\Facades\DB;
 
 class CorrelativeService

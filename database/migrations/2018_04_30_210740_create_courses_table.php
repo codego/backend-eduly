@@ -18,7 +18,9 @@ class CreateCoursesTable extends Migration
             $table->date('init');
             $table->date('finish');
             $table->unsignedInteger('subject_id');
+            $table->unsignedInteger('teacher_id');
             $table->foreign('subject_id')->references('id')->on('subjects');;
+            $table->foreign('teacher_id')->references('id')->on('teachers');;
             $table->timestamps();
         });
 
@@ -28,7 +30,7 @@ class CreateCoursesTable extends Migration
             $table->integer('day_week');
             $table->integer('hour_init');
             $table->integer('hour_finish');
-            $table->integer('aula');
+            $table->integer('classroom');
             $table->integer('periodicity');
             $table->foreign('course_id')->references('id')->on('courses');;
             $table->timestamps();
