@@ -53,6 +53,17 @@ Route::group(['middleware' => ['jwt.auth']], function() {
     Route::post('course', 'CourseController@store');
     Route::get('course', 'CourseController@index');
 
+    Route::get('exam/{id}', 'ExamController@show');
+    Route::delete('exam/{id}', 'ExamController@destroy');
+    Route::put('exam/{id}', 'ExamController@update');
+    Route::post('exam', 'ExamController@store');
+    Route::get('exam', 'ExamController@index');
+
+
+    Route::get('enroll/course/students', 'StudentAndCourseController@listStudentsInscribables');
+    Route::get('enroll/course/enrolled-students', 'showFromCourse@listStudentsInscribables');
+    Route::post('enroll/course/course', 'StudentAndCourseController@enroll');
+    Route::delete('enroll/course/students/{id}', 'StudentAndCourseController@destroy');
 
     Route::get('correlatives', 'SubjectController@getCorrelatives');
     Route::get('subject_career', 'SubjectController@getCareers');

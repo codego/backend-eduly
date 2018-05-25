@@ -3,16 +3,15 @@
 namespace App\Services;
 use Illuminate\Support\Facades\DB;
 
-class EnrrollService
+class EnrollService
 {
     public function store($idCourse, $students)
     {
         if($idCourse) {
             foreach ($students as $student) {
-                $enrrolls[] = array('course_id' => $idCourse, 'student_id' => $student);
+                $enrolls[] = array('course_id' => $idCourse, 'student_id' => $student);
             }
-            DB::table('correlatives')->where('id_subject', $id_subject)->delete();
-            DB::table('correlatives')->insert($correlatives);
+            DB::table('student_course')->insert($enrolls);
         }
         return true;
     }

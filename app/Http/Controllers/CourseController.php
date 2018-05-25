@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Services\CalendarService;
 use DateTime;
+use App\Services\CalendarService;
 
 class CourseController extends Controller
 {
@@ -14,7 +14,7 @@ class CourseController extends Controller
 
     function __construct(CalendarService $calendarService)
     {
-        $this->calendarService = $calendarService;
+        $this->enrollService = $calendarService;
     }
 
     private function getCalendar($id) {
@@ -40,6 +40,7 @@ class CourseController extends Controller
     }
     /**
      * Display a listing of the resource.
+     *
      *
      * @return \Illuminate\Http\Response
      */

@@ -377,6 +377,7 @@ class ComposerStaticInit71f62eca2235383a917154d1c7f6e04b
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Services\\CareerService' => __DIR__ . '/../..' . '/app/Services/CareerService.php',
         'App\\Services\\CorrelativeService' => __DIR__ . '/../..' . '/app/Services/CorrelativeService.php',
+        'App\\Services\\EnrollService' => __DIR__ . '/../..' . '/app/Services/EnrollService.php',
         'App\\Services\\CalendarService' => __DIR__ . '/../..' . '/app/Services/CalendarService.php',
         'App\\Tenant' => __DIR__ . '/../..' . '/app/Tenant.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',

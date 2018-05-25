@@ -40,6 +40,7 @@ return array(
     'App\\Services\\CareerService' => $baseDir . '/app/Services/CareerService.php',
     'App\\Services\\CalendarService' => $baseDir . '/app/Services/CalendarService.php',
     'App\\Services\\CorrelativeService' => $baseDir . '/app/Services/CorrelativeService.php',
+    'App\\Services\\EnrollService' => $baseDir . '/app/Services/EnrollService.php',
     'App\\Tenant' => $baseDir . '/app/Tenant.php',
     'App\\User' => $baseDir . '/app/User.php',
     'App\\correlatives' => $baseDir . '/app/correlatives.php',

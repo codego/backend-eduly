@@ -36,6 +36,19 @@ class SubjectController extends Controller
         return $result_correlatives;
     }
 
+    private function getIdCorrelativesName($id_subject) {
+        $result_correlatives = array();
+        $correlatives = DB::table('correlatives')->where('correlatives.id_subject', '=', $id_subject)
+            ->join('subjects', 'subjects.id', '=', 'correlatives.id_subject_dependence')
+            ->select('subjects.name')
+            ->get();
+
+        foreach ($correlatives as $value) {
+            $result_correlatives[] = $value->name;
+        }
+        return $result_correlatives;
+    }
+
     private function getIdCareers($subject_id) {
         $result_careers = array();
         $careers = DB::table('careers_subjects')->where('careers_subjects.subject_id', '=', $subject_id)
@@ -44,6 +57,19 @@ class SubjectController extends Controller
 
         foreach ($careers as $value) {
             $result_careers[] = $value->id;
+        }
+        return $result_careers;
+    }
+
+    private function getIdCareersName($subject_id) {
+        $result_careers = array();
+        $careers = DB::table('careers_subjects')->where('careers_subjects.subject_id', '=', $subject_id)
+            ->join('careers', 'careers.id', '=', 'careers_subjects.career_id')
+            ->select('careers.name')
+            ->get();
+
+        foreach ($careers as $value) {
+            $result_careers[] = $value->name;
         }
         return $result_careers;
     }
@@ -78,6 +104,10 @@ class SubjectController extends Controller
             'code'=>$subjectDetail->code,
             'promotable'=>$subjectDetail->promotable,
             'correlatives'=>$this->getIdCorrelatives($id),
+            'correlativesName'=>$this->getIdCorrelativesName($id),
+            'careersName'=>$this->getIdCareersName($id),
+
+
             'careers'=>$this->getIdCareers($id)
         ];
         return response($result, 200);
@@ -97,7 +127,9 @@ class SubjectController extends Controller
 
         $list = array_map(function($item) {
             $item->correlatives = $this->getIdCorrelatives($item->id);
+            $item->correlativesName = $this->getIdCorrelativesName($item->id);
             $item->careers = $this->getIdCareers($item->id);
+            $item->careersName = $this->getIdCareersName($item->id);
             return $item;
         }, $result->all());
 
@@ -124,7 +156,7 @@ class SubjectController extends Controller
         $subject->promotable = $subjectData['promotable'];
 
         $this->correlativeService->store($id, $subjectData['correlatives']);
-        $this->careerService->store($id, $subjectData['career']);
+        $this->careerService->store($id, $subjectData['careers']);
 
         $subject->save();
 
