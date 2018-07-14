@@ -17,4 +17,7 @@ class CorrelativeService
         return true;
     }
 
+    public function getSubjectsCorrelatives($id_subject) {
+        return DB::table('correlatives')->where('id_subject', $id_subject)->select('id_subject_dependence')->get();
+    }
 }

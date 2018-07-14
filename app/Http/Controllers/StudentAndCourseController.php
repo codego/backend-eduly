@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\students;
 use Illuminate\Support\Facades\DB;
 use App\Services\EnrollService;
+use App\Services\correlativeService;
+use App\Course;
 
 class StudentAndCourseController extends Controller
 {
@@ -14,10 +16,15 @@ class StudentAndCourseController extends Controller
 
     protected $enrollService;
 
-    function __construct(Students $student, EnrollService $enrollService)
+    protected $correlativeService;
+    protected $course;
+
+    function __construct(Students $student, EnrollService $enrollService, CorrelativeService $correlativeService, Course $course)
     {
         $this->student = $student;
+        $this->course = $course;
         $this->enrollService = $enrollService;
+        $this->correlativeService = $correlativeService;
     }
 
     /**
@@ -80,10 +87,33 @@ class StudentAndCourseController extends Controller
 
     public function listStudentsInscribables(Request $request) {
         $cursoId = $request->input('course_id');
-        $query = response(DB::table('students')->get(), 200)
-                ->header('X-Total-Count', \App\students::all()->count());
+         $course =  Course::find($cursoId);
 
-        return $query;
+        $correlatives = $this->correlativeService->getSubjectsCorrelatives($course->subject_id);
+        $correlatives_ids = array();
+
+        foreach ($correlatives as $correlative) {
+            $correlatives_ids[] = $correlative->id_subject_dependence;
+        }
+
+        if(!empty($correlatives_ids)) {
+            return response(
+                    DB::table('student_course')
+                        ->select('students.name', 'students.lastname', 'students.document', 'students.id')
+                        ->whereIn('subject_id', $correlatives_ids)
+                        ->where('approve', 1)
+                        ->join('students', 'students.id', '=', 'student_course.student_id')
+                        ->get(), 200)
+                        ->header('X-Total-Count', \App\students::all()->count()
+                );
+        }
+
+        return response(
+            DB::table('students')
+                ->select('id', 'name', 'lastname', 'document')
+                ->get(), 200)
+            ->header('X-Total-Count', \App\students::all()->count()
+            );
     }
     /**
      * Show the form for editing the specified resource.

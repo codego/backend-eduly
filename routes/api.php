@@ -61,7 +61,7 @@ Route::group(['middleware' => ['jwt.auth']], function() {
 
 
     Route::get('enroll/course/students', 'StudentAndCourseController@listStudentsInscribables');
-    Route::get('enroll/course/enrolled-students', 'showFromCourse@listStudentsInscribables');
+    Route::get('enroll/course/enrolled-students', 'StudentAndCourseController@showFromCourse');
     Route::post('enroll/course/course', 'StudentAndCourseController@enroll');
     Route::delete('enroll/course/students/{id}', 'StudentAndCourseController@destroy');
 

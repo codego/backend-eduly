@@ -17,6 +17,16 @@ class CourseController extends Controller
         $this->enrollService = $calendarService;
     }
 
+    private function getStudents($id) {
+        $result_students = array();
+        $students = DB::table('student_course')->where('student_course.course_id', '=', $id)
+            ->join('students', 'students.id', '=', 'student_course.student_id')
+            ->select('students.id', 'students.name', 'students.lastname', 'students.document', 'student_course.updated_at')
+            ->get();
+
+        return $students;
+    }
+
     private function getCalendar($id) {
         $result_calendar = array();
         $calendarSql = DB::table('calendar_courses')->where('calendar_courses.course_id', '=', $id)
@@ -119,6 +129,7 @@ class CourseController extends Controller
             'group_by'=>$courseDetail->group_by,
             'term'=>$courseDetail->term,
             'calendar'=>$this->getCalendar($id),
+            'enrolled_students'=>$this->getStudents($id),
         ];
         return response($result, 200);
     }
