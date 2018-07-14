@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\students;
 use Illuminate\Support\Facades\DB;
 use App\Services\EnrollService;
-use App\Services\correlativeService;
+use App\Services\CorrelativeService;
 use App\Course;
 
 class StudentAndCourseController extends Controller
